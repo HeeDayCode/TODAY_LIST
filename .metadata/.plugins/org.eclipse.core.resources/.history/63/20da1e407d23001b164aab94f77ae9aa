@@ -1,0 +1,306 @@
+package userdata;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import userdata.UserData;
+import java.util.*;
+import java.text.*;
+
+public class UserDataDAO {
+	
+	private Connection conn;
+	private ResultSet rs;
+	
+	public UserDataDAO() {
+		try {
+			String dbURL = "jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";
+			String dbID ="root";
+			String dbPassword ="2412";
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String getDate(){
+		String SQL ="select now()";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ""; 
+	}	
+	
+	public int getNext(){
+		String SQL ="select bbsID from userdata order by bbsID desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1) +1;				
+			}
+			return 1;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; 
+	}
+	
+	public int write(String userTitle, String userID, String userDate, String userMemo, String userCompletion) {
+		String SQL ="insert into userdata values (?, ?, ?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,getNext());
+			pstmt.setString(2,userTitle);
+			pstmt.setString(3,userID);
+			pstmt.setString(4,userDate);
+			pstmt.setString(5,userMemo);
+			pstmt.setString(6,userCompletion);
+			pstmt.setInt(7,1);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; 	
+	}
+	
+	public ArrayList<UserData> getList(String userID){
+		String SQL ="select * from userdata where userAvailable = 1  And userID = ? order by bbsID desc";
+		ArrayList<UserData> list =new ArrayList<UserData>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,userID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserData user =new UserData();
+				user.setBbsID(rs.getInt(1));
+				user.setUserTitle(rs.getString(2));
+				user.setUserID(rs.getString(3));
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				user.setUserAvailable(rs.getInt(7));
+				list.add(user);	
+			}
+			
+			UserData b;
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+			for(int i = 0; i < list.size(); i ++) {
+				for(int j = 0 ; j < list.size()-i-1 ; j ++) {
+					Date before = dateformat.parse(list.get(j).getUserDate());
+					Date after = dateformat.parse(list.get(j+1).getUserDate());
+					
+					if(before.compareTo(after) > 0) {
+						b = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, b);
+					}
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;		
+	}
+	
+	public ArrayList<UserData> getListplus(String userID){
+		String SQL ="select * from userdata where userAvailable = 1  And userID = ? order by bbsID desc";
+		ArrayList<UserData> list =new ArrayList<UserData>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,userID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserData user =new UserData();
+				user.setBbsID(rs.getInt(1));
+				user.setUserTitle(rs.getString(2));
+				user.setUserID(rs.getString(3));
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				user.setUserAvailable(rs.getInt(7));
+				list.add(user);	
+			}
+			
+			UserData b;
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+			for(int i = 0; i < list.size(); i ++) {
+				for(int j = 0 ; j < list.size()-i-1 ; j ++) {
+					Date before = dateformat.parse(list.get(j).getUserDate());
+					Date after = dateformat.parse(list.get(j+1).getUserDate());
+					
+					if(before.compareTo(after) > 0) {
+						b = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, b);
+					}
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;		
+	}
+	
+	
+	public ArrayList<UserData> getList2(String userID, String userDate){
+		String SQL ="select * from userdata where userAvailable = 1  And userID = ? And userDate like ? order by bbsID desc";
+		ArrayList<UserData> list =new ArrayList<UserData>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			//pstmt.setInt(1, getNext());
+			pstmt.setString(1,userID);
+			pstmt.setString(2,userDate+"%");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserData user =new UserData();
+				user.setBbsID(rs.getInt(1));
+				user.setUserTitle(rs.getString(2));
+				user.setUserID(rs.getString(3));
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				user.setUserAvailable(rs.getInt(7));
+				list.add(user);	
+			}
+			
+			UserData b;
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+			for(int i = 0; i < list.size(); i ++) {
+				for(int j = 0 ; j < list.size()-i-1 ; j ++) {
+					Date before = dateformat.parse(list.get(j).getUserDate());
+					Date after = dateformat.parse(list.get(j+1).getUserDate());
+					
+					if(before.compareTo(after) > 0) {
+						b = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, b);
+					}
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;		
+	}
+	
+	public ArrayList<UserData> getList3(String userID, String userDate){
+		String SQL ="select * from userdata where userAvailable = 1  And userID = ? And userDate = ? order by bbsID desc";
+		ArrayList<UserData> list =new ArrayList<UserData>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			//pstmt.setInt(1, getNext());
+			pstmt.setString(1,userID);
+			pstmt.setString(2,userDate);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserData user =new UserData();
+				user.setBbsID(rs.getInt(1));
+				user.setUserTitle(rs.getString(2));
+				user.setUserID(rs.getString(3));
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				user.setUserAvailable(rs.getInt(7));
+				list.add(user);	
+			}
+			
+			UserData b;
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+			for(int i = 0; i < list.size(); i ++) {
+				for(int j = 0 ; j < list.size()-i-1 ; j ++) {
+					Date before = dateformat.parse(list.get(j).getUserDate());
+					Date after = dateformat.parse(list.get(j+1).getUserDate());
+					
+					if(before.compareTo(after) > 0) {
+						b = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, b);
+					}
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;		
+	}
+	
+	public boolean nextPage(String userID) { 
+		String SQL ="select * from userdata where userAvailable = 1 And userID = ? order by bbsID desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,userID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;	
+	}
+	
+	public UserData getBbs(int bbsID) {
+		String SQL ="select * from userdata where bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,bbsID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				UserData user =new UserData();
+				user.setBbsID(rs.getInt(1));
+				user.setUserTitle(rs.getString(2));
+				user.setUserID(rs.getString(3));
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				user.setUserAvailable(rs.getInt(7));
+				return user;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;	
+	}
+
+	public int update(int bbsID, String userTitle, String userDate, String userMemo, String userCompletion ) {
+		String SQL = "UPDATE userdata SET userTitle= ?, userDate = ?, userMemo =?, userCompletion =? where bbsID = ? ";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,userTitle);
+			pstmt.setString(2,userDate);
+			pstmt.setString(3,userMemo);
+			pstmt.setString(4,userCompletion);
+			pstmt.setInt(5,bbsID);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; 
+	}
+		
+	public int delete(int bbsID) {
+		String SQL = "UPDATE userdata SET userAvailable = 0 where bbsID = ? ";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,bbsID);
+			return pstmt.executeUpdate(); 
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; 
+		
+	}
+}

@@ -1,0 +1,161 @@
+package user;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class UserDDAO {
+	
+	private Connection conn;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	
+	public UserDDAO() {
+		try {
+			String dbURL="jdbc:mysql://localhost:3306/BBS?&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			String dbID ="root";
+			String dbPassword ="2412";
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	public ArrayList<UserD> search(String userTitle, String userID){
+		String SQL ="select * from userdata where userTitle like ? and userID = ? and userAvailable = 1";
+		ArrayList<UserD> userList = new ArrayList<UserD>();
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,"%"+ userTitle +"%");
+			pstmt.setString(2,userID);
+			rs = pstmt.executeQuery();	
+			while(rs.next()){
+				UserD user = new UserD();
+				
+				user.setUserTitle(rs.getString(2));
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				
+				userList.add(user);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userList;	
+	}	
+	
+	public ArrayList<UserD> search2(String userDate, String userID){
+		String SQL ="select * from userdata where userDate = ? and userID = ? and userAvailable = 1";
+		ArrayList<UserD> userList = new ArrayList<UserD>();
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,userDate);
+			pstmt.setString(2,userID);
+			rs = pstmt.executeQuery();	
+			while(rs.next()){
+				UserD user = new UserD();				
+				user.setUserTitle(rs.getString(2));				
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				userList.add(user);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userList;	
+	}
+	
+	public ArrayList<UserD> search3(String userDate, String userID){
+		String SQL ="select * from userdata where userDate like ? and userID = ? and userAvailable = 1 order by bbsID desc";
+		ArrayList<UserD> userList = new ArrayList<UserD>();
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,userDate+"%");
+			pstmt.setString(2,userID);
+			rs = pstmt.executeQuery();	
+			while(rs.next()){
+				UserD user = new UserD();				
+				user.setUserTitle(rs.getString(2));
+				user.setUserDate(rs.getString(4));	
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				userList.add(user);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userList;	
+	}
+	
+	public ArrayList<UserD> search4(String userDate, String userID){
+		String SQL ="select * from userdata where userDate like ? and userID = ? and userAvailable = 1 order by bbsID desc";
+		ArrayList<UserD> userList = new ArrayList<UserD>();
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,"%"+userDate+"%");
+			pstmt.setString(2,userID);
+			rs = pstmt.executeQuery();	
+			while(rs.next()){
+				UserD user = new UserD();				
+				user.setBbsID(rs.getInt(1));	
+				user.setUserTitle(rs.getString(2));	
+				user.setUserDate(rs.getString(4));
+				user.setUserMemo(rs.getString(5));
+				user.setUserCompletion(rs.getString(6));
+				userList.add(user);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userList;	
+	}
+	
+	public int getNext(){
+		String SQL ="select bbsID from userdata order by bbsID desc";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1) +1;				
+			}
+			return 1;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; 
+	}
+	
+	
+	public int register(UserD user) {
+		String SQL ="insert into userdata values (?, ?, ?, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,getNext());
+			pstmt.setString(2,user.getUserTitle());
+			pstmt.setString(3,user.getUserID());
+			pstmt.setString(4,user.getUserDate());
+			pstmt.setString(5,user.getUserMemo());
+			pstmt.setString(6,user.getUserCompletion());
+			pstmt.setInt(7,1);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+		e.printStackTrace();
+			System.out.println("Insert() Exception!!!");
+		}
+		return -1;
+	}	
+}

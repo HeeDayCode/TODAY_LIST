@@ -1,0 +1,40 @@
+
+10월 23, 2020 01:20:54.995 NEW SESSION
+10월 23, 2020 01:20:54.995 [13724:10896:1023/012054.991:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 01:25:20.119 [1023/012520.116:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)
+10월 23, 2020 02:30:21.614 [1023/023021.613:ERROR:file_io.cc(90)] ReadExactly: expected 36, observed 0
+10월 23, 2020 11:21:17.599 [1023/112117.595:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)
+10월 23, 2020 12:11:46.593 [1023/121146.590:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)
+10월 23, 2020 17:31:37.481 [12744:15812:1023/173137.475:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 18:42:22.868 [12744:15812:1023/184222.867:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 19:28:19.714 [12744:15812:1023/192819.713:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 22:29:50.373 [12744:15812:1023/222950.373:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 23:00:16.666 [12744:15812:1023/230016.664:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 23:20:16.377 [12744:15812:1023/232016.376:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 23, 2020 23:50:42.956 [12744:15812:1023/235042.956:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 02:52:13.563 [12744:15812:1024/025213.562:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 03:22:39.910 [12744:15812:1024/032239.909:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 06:24:10.224 [12744:15812:1024/062410.223:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 06:54:37.06 [12744:15812:1024/065437.006:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 09:56:06.453 [12744:15812:1024/095606.452:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 10:26:32.991 [12744:15812:1024/102632.990:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 12:14:22.140 [12744:15812:1024/121422.140:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 12:14:22.381 [12744:18180:1024/121422.381:ERROR:get_updates_processor.cc(257)] PostClientToServerMessage() failed during GetUpdates with error 2
+10월 24, 2020 13:00:48.816 [12744:15812:1024/130048.816:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 16:02:18.707 [12744:15812:1024/160218.706:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 16:32:44.582 [12744:15812:1024/163244.579:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 19:34:14.780 [12744:15812:1024/193414.779:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 20:04:41.980 [12744:15812:1024/200441.979:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 23:06:11.795 [12744:15812:1024/230611.794:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 24, 2020 23:36:38.970 [12744:15812:1024/233638.970:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 25, 2020 24:36:20.413 [12744:15812:1025/003620.412:ERROR:socket_stream.cc(219)] Closing stream with result -2
+10월 25, 2020 24:36:24.255 [12744:15812:1025/003624.254:ERROR:connection_factory_impl.cc(428)] Failed to connect to MCS endpoint with error -105
+
+11월 12, 2020 23:15:40.511 NEW SESSION
+11월 12, 2020 23:15:40.511 [1112/231540.505:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)
+11월 12, 2020 23:23:51.607 [8372:9376:1112/232351.607:ERROR:CONSOLE(0)] "TypeError: Cannot read property 'isAnonymousInlineStyleSheet' of null", source:  (0)
+11월 12, 2020 23:25:24.793 [8372:9376:1112/232524.793:ERROR:CONSOLE(0)] "TypeError: Cannot read property 'isAnonymousInlineStyleSheet' of null", source:  (0)
+11월 12, 2020 23:36:04.376 [8372:16792:1112/233604.375:ERROR:socket_stream.cc(219)] Closing stream with result -2
+11월 13, 2020 02:15:48.286 [8372:9376:1113/021548.285:ERROR:CONSOLE(0)] "TypeError: Cannot read property 'isAnonymousInlineStyleSheet' of null", source:  (0)
+11월 13, 2020 02:22:50.333 [8372:9376:1113/022250.332:ERROR:CONSOLE(0)] "TypeError: Cannot read property 'isAnonymousInlineStyleSheet' of null", source:  (0)
+11월 13, 2020 02:24:15.821 [8372:9376:1113/022415.820:ERROR:CONSOLE(0)] "TypeError: Cannot read property 'isAnonymousInlineStyleSheet' of null", source:  (0)

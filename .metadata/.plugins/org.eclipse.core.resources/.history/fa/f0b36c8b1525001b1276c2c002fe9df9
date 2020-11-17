@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-with" , initial-scale="1">
+<link rel="stylesheet" href="css/bootstrap.css">
+<title>TODAY LIST 일정관리</title>
+<style>
+body {
+  background-image: url("login6.jpg");
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class ="navbar-brand">TODAY LIST</a>
+		</div>
+		
+	</nav>
+	<div class="container">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<div class="jumpbotron" style="padding-top:20px;">
+				 <form method="post" action="loginAction.jsp">
+				 	<h3  style="text-align: center; color: #3553b7; font-family: 'Noto Sans KR', sans-serif; text-shadow: 1px 1px 5px #000;" >로그인</h3>
+				 	<h5  style="text-align: center; color: #3553b7; font-family: 'Noto Sans KR', sans-serif; text-shadow: 1px 1px 5px #000;" >반갑습니다. 지금부터 일정관리를 시작하세요.</h5>
+				 	<div class="form-group">
+				 		<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
+				 	</div>
+				 	<div class="form-group">
+				 		<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
+				 	</div>
+				 	<input type="submit" class="btn-primary form-control" value="로그인">
+				 	<br />
+				 	<input type="button" class="btn-primary form-control" onClick="location.href='join.jsp'" value="회원가입">
+					
+				 </form>
+			</div>		
+		</div>
+	</div>
+ 	<script src= "https://code.jquery.com/jquery-3.5.1.min.js"></script>
+ 	<script src="js/bootstrap.js"></script>
+</body>
+</html>
